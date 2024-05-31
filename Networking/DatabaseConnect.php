@@ -1,9 +1,9 @@
 <?php
 class DatabaseConnect {
-    private $host = 'localhost';
+    private $host = 'mwiaticketingsystem-db.cbvja2yia6vn.eu-central-1.rds.amazonaws.com';
     private $db = 'mwiaTicketingSystem';
-    private $user = 'root';
-    private $pass = 'ramesh123';
+    private $user = 'admin';
+    private $pass = 'HappyD0g$Br1ghtL1ghtS!';
     private $charset = 'utf8mb4';
     private $pdo;
     private $error;

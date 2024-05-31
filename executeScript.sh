@@ -43,3 +43,5 @@ CREATE TABLE mwia_members_child_2024 (
     childAge Int,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB;
+
+#HappyD0g$Br1ghtL1ghtS! -> SQL PASSWORD
