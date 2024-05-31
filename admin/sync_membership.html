@@ -18,11 +18,31 @@
                     <h1>Mainz Wiesbaden Indian Association</h1>
 
                     <p class="lead"></p>
-                    <p><a href="sync_membership.html">sync membership</a></p>
-                    <p><a href="../index.html">Home</a></p>
 
-                    <p class="lead">Here the result display</p>
+                    <form id="contact-form" method="post" action="sync_membership.php" role="form">
+                        
+                        <div class="messages"></div>
+    
+                        <div class="controls">
+    
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="form_name">Enter file name *</label>
+                                        <input id="form_name" type="text" name="filename" class="form-control" placeholder="Please enter file name *" required="required" data-error="file name is required.">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-success btn-send" value="Start">
+                                </div>
+                            </div>
+                        </div>
+    
+                    </form>
 
                 </div><!-- /.8 -->
 
