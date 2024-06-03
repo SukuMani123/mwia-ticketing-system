@@ -24,17 +24,17 @@ try
         $email = $item['Email address'];
         $objUser = new mwiaMembers2024();
         $resultUser = $objUser->selectUser($email);
-        $resultLastUser = $objUser->getLastEntry();
+        $resultLastUser = $objUser->getLastEntry()->id;
 
-        $responseArray = array('type' => 'danger', 'message' => $item['Payment Reference Number_1']);
+        //$responseArray = array('type' => 'danger', 'message' => $resultLastUser->id);
 
         if ($resultUser->id === NULL){
             // Here add new member 
-            $responseArray = array('type' => 'danger', 'message' => $resultUser->id );
+            //$responseArray = array('type' => 'danger', 'message' => $resultUser->id );
             if($item['Membership Level'] == "Family"){
                 // Here handle family add to database
                 $objUser->emailId = $email;
-                $objUser->memberId = $resultLastUser->id == NULL ? "MWIA20241001" : "MWIA2024".($resultLastUser->id +1) ;
+                $objUser->memberId = ((int)$resultLastUser) == NULL ? "MWIA20241001" : "MWIA2024".(((int)$resultLastUser)+1) ;
                 $objUser->membershipLevel = $item['Membership Level'];
                 $objUser->firstName = $item['First Name__1'];
                 $objUser->lastName = $item['Last Name__1'];
@@ -80,7 +80,7 @@ try
             }else{
                 // Here handle family add to database
                 $objUser->emailId = $email;
-                $objUser->memberId = $resultLastUser->id == NULL ? "MWIA20241001" : "MWIA2024".($resultLastUser->id +1) ;
+                $objUser->memberId = ((int)$resultLastUser) == NULL ? "MWIA20241001" : "MWIA2024".(((int)$resultLastUser)+1) ;
                 $objUser->membershipLevel = $item['Membership Level'];
                 $objUser->firstName = $item['First Name'];
                 $objUser->lastName = $item['Last Name'];
@@ -96,7 +96,7 @@ try
                 $insertedId = $objUser->addMember();
             }    
         }
-        header("Location: registationResult.html");
+        //header("Location: registationResult.html");
     }
 
 }

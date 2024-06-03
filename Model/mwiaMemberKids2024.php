@@ -28,4 +28,14 @@ class mwiaMemberKids2024 {
         $results = $db->execute();
         $db->closeConnection();
     }
+
+    public function getMemberKids($memberId){
+        // Select query example
+        $db =  new DatabaseConnect();
+        $db->query("SELECT * FROM mwia_members_child_2024 WHERE `memberId` = :memberId");
+        $db->bind(':memberId', $memberId);
+        $result = $db->resultSetwith("mwiaMemberKids2024" );
+        $db->closeConnection();
+        return $result;
+    }
 }

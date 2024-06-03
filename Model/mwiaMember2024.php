@@ -79,12 +79,11 @@ class mwiaMembers2024 {
     public function getLastEntry(){
         // Select query example
         $db =  new DatabaseConnect();
-        $db->query("SELECT MAX(id) FROM mwia_members_2024;");
-        $results = $db->single();
-        
-        $users = new mwiaMembers2024($results);
+        $db->query("SELECT * FROM mwia_members_2024 ORDER BY id DESC LIMIT 1;");
+        $result = $db->single();
+        $user = new mwiaMembers2024($result);
 
         $db->closeConnection();
-        return $users;
+        return $user;
     }
 }

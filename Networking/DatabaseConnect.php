@@ -57,6 +57,11 @@ class DatabaseConnect {
         return $this->stmt->fetchAll();
     }
 
+    public function resultSetwith($className) {
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_CLASS, $className);
+    }
+
     public function single() {
         $this->execute();
         return $this->stmt->fetch();

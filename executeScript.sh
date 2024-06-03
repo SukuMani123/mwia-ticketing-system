@@ -44,4 +44,24 @@ CREATE TABLE mwia_members_child_2024 (
     PRIMARY KEY(id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE mwia_event (
+    id integer unsigned not null AUTO_INCREMENT,
+    eventId VARCHAR(100) NOT NULL,
+    eventYear integer NOT NULL,
+    memberId VARCHAR(100),
+    emailId VARCHAR(100) NOT NULL,
+    fullName VARCHAR(100) NOT NULL,
+    location VARCHAR(100),
+    mobileNumber VARCHAR(100),
+    paymentReferenceNumber VARCHAR(100),
+    noAdult integer  NOT NULL,
+    noKidsBelow6 integer  NOT NULL,
+    noKidsAbove6 integer  NOT NULL,
+    amount FLOAT  NOT NULL,
+    registeredDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    isPaidConfirmed BOOL DEFAULT 0,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+
 #HappyD0g$Br1ghtL1ghtS! -> SQL PASSWORD

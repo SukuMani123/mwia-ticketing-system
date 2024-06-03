@@ -34,7 +34,7 @@ try
 
     if ($resultUser->id === NULL){
         $responseArray = array('type' => 'danger', 'message' => 'Invalid login');
-        header("Location: loginError.html");
+        //header("Location: loginError.html");
     }else{
         $okMessage = $resultUser->name;
     
