@@ -4,14 +4,15 @@ header("Content-Type:application/json");
 
 
 if (isset($_GET['userid']) && $_GET['userid']!="") {
-	include("Model/mwiaMember2024.php");
-	include("Model/mwiaMemberKids2024.php");
-	include("Model/Dtos/eventUserDto.php");
+	include("../shared/Model/mwiaMember2024.php");
+	include("../shared/Model/mwiaMemberKids2024.php");
+	include("../shared/Model/mwiaEventRegister.php");
+	include("Dtos/eventUserDto.php");
 
 	$userid = $_GET['userid'];
-	
+	$eventId = $option = isset($_GET['eventid']) ? $_GET['eventid'] : "";
 	// check if userid is exciting our database if so return with members details else return empty
-	$res = getCheckMember($userid);
+	$res = getCheckMember($userid,$eventId);
 	response($res, 200, 200, "Hello");
 	//response(NULL, NULL, 200,"No Record Found");
 }else{
@@ -31,11 +32,22 @@ function generateUniqueId() {
     return $timestamp;
 }
 
-function getCheckMember($emailid){
+function getCheckMember($emailid,$eventid){
+	$eventId = $eventid;
 	$objMember = new mwiaMembers2024();
     $resultUser = $objMember->selectUser($emailid);
 
 	$objReturnDto = new EventUserDto();
+	// Check if this user already register
+	$isRegisteredCurrentEvent = false;
+
+	$currentYear = date("Y");
+	$objEventUser = new mwiaEventRegister();
+	$resultEventUser = $objEventUser->getUser($emailid,$eventid,$currentYear);
+	
+	if (!($resultEventUser->id === NULL)){
+		$isRegisteredCurrentEvent =true;
+	}
 
 	if ($resultUser->id === NULL){
        $objReturnDto->isMember = false;
@@ -62,10 +74,12 @@ function getCheckMember($emailid){
         $objReturnDto->isMember = true;
 		$objReturnDto->fullName = $resultUser->firstName. " " .$resultUser->lastName ;
 		$objReturnDto->email = $resultUser->emailId;
+		$objReturnDto->fullAddress = $resultUser->streetName. " - " .$resultUser->houseNumber. ", " .$resultUser->city. " - " .$resultUser->postalCode;
 		$objReturnDto->nubmberOfAdult = 2;
 		$objReturnDto->nubmberOfKids_age_below6 = count($below6);
 		$objReturnDto->nubmberOfKids_age_above6 = count($above6);
 		$objReturnDto->paymentReference = $resultUser->memberId."_".generateUniqueId()."_"."GR24";
+		$objReturnDto->isRegisteredCurrentEvent = $isRegisteredCurrentEvent;
     }
 	return $objReturnDto;
 }

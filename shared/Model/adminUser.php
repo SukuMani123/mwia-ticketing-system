@@ -1,5 +1,5 @@
 <?php
-require_once ('Networking/DatabaseConnect.php');
+require_once ('../shared/Networking/DatabaseConnect.php');
 
 class adminUser {
    
