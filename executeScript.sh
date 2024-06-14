@@ -44,22 +44,41 @@ CREATE TABLE mwia_members_child_2024 (
     PRIMARY KEY(id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE mwia_event (
+CREATE TABLE mwia_event_register (
     id integer unsigned not null AUTO_INCREMENT,
     eventId VARCHAR(100) NOT NULL,
     eventYear integer NOT NULL,
     memberId VARCHAR(100),
     emailId VARCHAR(100) NOT NULL,
     fullName VARCHAR(100) NOT NULL,
-    location VARCHAR(100),
+    address VARCHAR(100) NOT NULL,
     mobileNumber VARCHAR(100),
     paymentReferenceNumber VARCHAR(100),
     noAdult integer  NOT NULL,
     noKidsBelow6 integer  NOT NULL,
     noKidsAbove6 integer  NOT NULL,
-    amount FLOAT  NOT NULL,
+    totalAmount FLOAT  NOT NULL,
     registeredDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     isPaidConfirmed BOOL DEFAULT 0,
+    paidConfirmedReferenceNumber VARCHAR(100),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+CREATE TABLE mwia_events (
+    id integer unsigned not null AUTO_INCREMENT,
+    eventId VARCHAR(100) NOT NULL,
+    eventName VARCHAR(100) NOT NULL,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+CREATE TABLE mwia_event_entry_fee (
+    id integer unsigned not null AUTO_INCREMENT,
+    eventId VARCHAR(100) NOT NULL,
+    eventYear integer NOT NULL,
+    memberEntryFee FLOAT NOT NULL,
+    nonMemberEntryFee FLOAT NOT NULL,
+    kidsBelow6EntryFee FLOAT NOT NULL,
+    kidsAbove6EntryFee FLOAT NOT NULL,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
 

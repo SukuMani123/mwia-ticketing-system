@@ -2,10 +2,11 @@
 
 header("Content-Type:application/json");
 
+
 if (isset($_GET['userid']) && $_GET['userid']!="") {
-	include("../Model/mwiaMember2024.php");
-	include("../Model/mwiaMemberKids2024.php");
-	include("../Model/Dtos/eventUserDto.php");
+	include("Model/mwiaMember2024.php");
+	include("Model/mwiaMemberKids2024.php");
+	include("Model/Dtos/eventUserDto.php");
 
 	$userid = $_GET['userid'];
 	

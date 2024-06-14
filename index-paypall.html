@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <title>MWIA Grill 2024</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link href='custom.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-xl-8 offset-xl-2 py-5">
+
+                <h1>MWIA </h1>
+                <form id="contact-form" method="post" action="contact.php" role="form">
+
+                    <div class="messages"></div>
+
+                    <div class="controls">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="form_name">Enter your email *</label>
+                                    <input id="form_email" type="text" name="email" class="form-control"  onchange="getval(this);"
+                                    placeholder="Please enter your Email *" required="required" data-error="Firstname is required.">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-success btn-send" value="Send message">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+                <form action="https://www.paypal.com/cgi-bin/webscr?locale=de_DE" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_ext-enter">
+                    <input type="hidden" name="redirect_cmd" value="_xclick">
+                    <input type="hidden" name="hosted_button_id" value="YW6R4JZCK4ZQG" />
+                    <input type="hidden" name="currency_code" value="EUR" />
+                    <input type="hidden" name="amount" value="30.00" />
+                    <input type="hidden" name="invoice" value="ABCCDEFFF" />
+                    <input type="hidden" name="business" value="ramrc007@gmail.com">
+                    <input type="hidden" name="country_code" value="DE">
+                    <input type="hidden" name="postal_code" value="65760">
+                    <input type=hidden name=lc value=de_DE>
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" />
+                  </form>
+
+                  
+            </div>
+            <!-- /.8 -->
+
+        </div>
+        <!-- /.row-->
+
+    </div>
+    <!-- /.container-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" integrity="sha256-dHf/YjH1A4tewEsKUSmNnV05DDbfGN3g7NMq86xgGh8=" crossorigin="anonymous"></script>
+    <script src="contact.js"></script>
+    <script>
+        function getval(sel){
+            var load = $.get('yourPHPFILE.php',{number:sel.value);
+            $(".someClass").html('Refreshing');
+            load.error(function() {
+                console.log("Mlkia kaneis");
+                $(".someClass").html('failed to load');
+                // do something here if request failed
+            });
+            load.success(function( res ) {
+                console.log( "Success GET VA" );
+                $(".someClass").html(res);
+            });
+            load.done(function() {
+                console.log( "Completed GET VA" );
+            });
+        }
+    </script>
+</body>
+
+</html>
+sudo mkdir eventregistration
+sudo chown $USER eventregistration

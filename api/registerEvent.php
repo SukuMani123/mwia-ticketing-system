@@ -10,8 +10,8 @@ if (isset($_POST['eventId']) && $_POST['eventId']!="" &&
 	isset($_POST['noKidsAbove6']) && $_POST['noKidsAbove6']!="" &&
 	isset($_POST['fullName']) && $_POST['fullName']!="") {
 
-	include("../Model/mwiaMember2024.php");
-	include("../Model/Dtos/eventUserDto.php");
+	include("Model/mwiaMember2024.php");
+	include("Model/Dtos/eventUserDto.php");
 
 	
 	
@@ -21,19 +21,6 @@ if (isset($_POST['eventId']) && $_POST['eventId']!="" &&
 	//response(NULL, NULL, 200,"No Record Found");
 }else{
 	response(NULL, NULL, 400,"Invalid Request");
-}
-
-function generateUniqueId() {
-    // Get current timestamp in microseconds
-    $timestamp = microtime(true);
-
-    // Generate a unique ID based on the timestamp
-    $uniqueId = uniqid($timestamp, true);
-
-    // Optionally, hash the unique ID for added complexity
-    $hashedUniqueId = hash('sha256', $uniqueId);
-
-    return $timestamp;
 }
 
 function doRegistration(){
