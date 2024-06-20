@@ -3,6 +3,7 @@
 class EventUserDto {
    
     public $isMember;
+    public $memberId;
     public $fullName;
     public $email;
     public $fullAddress;

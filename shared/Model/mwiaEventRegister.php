@@ -72,6 +72,19 @@ class mwiaEventRegister {
         return $lastInsertedId;
     }
 
+
+    public function updateEventRegister_paidConfirmedReferenceNumber($paymentReferenceNumber, $paidConfirmedReferenceNumber, $paidStatus){
+        // Select query example
+        $db =  new DatabaseConnect();
+        $db->query("Update  mwia_event_register SET `paidConfirmedReferenceNumber` = :paidConfirmedReferenceNumber, `isPaidConfirmed` = :isPaidConfirmed WHERE `paymentReferenceNumber` = :paymentReferenceNumber ;");
+        $db->bind(':paidConfirmedReferenceNumber',$paidConfirmedReferenceNumber);
+        $db->bind(':paymentReferenceNumber', $paymentReferenceNumber);
+        $db->bind(':isPaidConfirmed', $paidStatus);
+        
+        $results = $db->execute();
+        return $results;
+    }
+
     public function getUser($email,$eventId, $eventYear){
         // Select query example
         $db =  new DatabaseConnect();
@@ -85,5 +98,29 @@ class mwiaEventRegister {
 
         $db->closeConnection();
         return $users;        
+    }
+
+    public function getUserWithReferenceNumber($paymentReferenceNumber){
+        // Select query example
+        $db =  new DatabaseConnect();
+        $db->query("SELECT * FROM mwiaTicketingSystem.mwia_event_register WHERE `paymentReferenceNumber` = :paymentReferenceNumber");
+        $db->bind(':paymentReferenceNumber', $paymentReferenceNumber);
+        $results = $db->single();
+        
+        $users = new mwiaEventRegister($results);
+
+        $db->closeConnection();
+        return $users;        
+    }
+
+    public function getAllRegisteredWithEventId($eventId){
+        // Select query example
+        $db =  new DatabaseConnect();
+        $db->query("SELECT * FROM mwiaTicketingSystem.mwia_event_register WHERE `eventId` = :eventId");
+        $db->bind(':eventId', $eventId);
+        $results = $db->resultSetwith('mwiaEventRegister');
+        
+        $db->closeConnection();
+        return $results;        
     }
 }

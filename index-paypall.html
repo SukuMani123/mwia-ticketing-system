@@ -43,18 +43,22 @@
 
                 </form>
 
-                <form action="https://www.paypal.com/cgi-bin/webscr?locale=de_DE" method="post" target="_top">
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr?locale=de_DE" method="post" target="_top">
                     <input type="hidden" name="cmd" value="_ext-enter">
                     <input type="hidden" name="redirect_cmd" value="_xclick">
                     <input type="hidden" name="hosted_button_id" value="YW6R4JZCK4ZQG" />
                     <input type="hidden" name="currency_code" value="EUR" />
-                    <input type="hidden" name="amount" value="30.00" />
-                    <input type="hidden" name="invoice" value="ABCCDEFFF" />
+                    <input type="hidden" name="amount" value="0.50" />
+                    <input type="hidden" name="invoice" value="ABCEDFGTHJ" />
                     <input type="hidden" name="business" value="ramrc007@gmail.com">
                     <input type="hidden" name="country_code" value="DE">
                     <input type="hidden" name="postal_code" value="65760">
                     <input type=hidden name=lc value=de_DE>
+                    <input type="hidden" value="https://indianassociation-mainz-wiesbaden.de/eventregistration/api/confirmRegistration.php?paymentReferenceNumber=ABCEDFGTHJ&paidStatus=1" name="return">
+                    <input type="hidden" name="cancel_return" id="cancel_return" value="https://indianassociation-mainz-wiesbaden.de/eventregistration/api/confirmRegistration.php?paymentReferenceNumber=ABCEDFGTHJ&paidStatus=0" />
+
                     <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" />
+                    <!-- https://indianassociation-mainz-wiesbaden.de/eventregistration/api/user.php?userid=ramrc007@gmail.com&PayerID=ZUAQZ2U2QHCD6 -->
                   </form>
 
                   
@@ -93,5 +97,3 @@
 </body>
 
 </html>
-sudo mkdir eventregistration
-sudo chown $USER eventregistration

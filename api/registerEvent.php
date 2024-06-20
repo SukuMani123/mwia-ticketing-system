@@ -1,6 +1,14 @@
 <?php
 
 header("Content-Type:application/json");
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Credentials: true');
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+	
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require 'lib/vendor/autoload.php';
 
 if (isset($_POST['eventId']) && $_POST['eventId']!="" && 
 	isset($_POST['emailId']) && $_POST['emailId']!="" &&
@@ -16,13 +24,14 @@ if (isset($_POST['eventId']) && $_POST['eventId']!="" &&
 	include("../shared/Model/mwiaEventRegister.php");
 	include("Dtos/eventUserDto.php");
 	include("Dtos/eventRegisterDto.php");
-
+	include('lib/phpqrcode/qrlib.php');
 	
 	// check if userid is exciting our database if so return with members details else return empty
 	$res = doRegistration();
 	response($res, 200, 200, "Hello");
 	//response(NULL, NULL, 200,"No Record Found");
-}else{
+}
+else{
 	response(NULL, NULL, 400,"Invalid Request");
 }
 
@@ -79,7 +88,6 @@ function doRegistration(){
 	$objEventRegisterDto->paymentReference = $_POST['paymentReferenceNumber'];
 
 	return $objEventRegisterDto;
-
 }
 
 function response($response){

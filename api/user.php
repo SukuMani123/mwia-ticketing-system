@@ -1,7 +1,10 @@
 <?php
 
 header("Content-Type:application/json");
-
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Credentials: true');
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 if (isset($_GET['userid']) && $_GET['userid']!="") {
 	include("../shared/Model/mwiaMember2024.php");
@@ -13,6 +16,18 @@ if (isset($_GET['userid']) && $_GET['userid']!="") {
 	$eventId = $option = isset($_GET['eventid']) ? $_GET['eventid'] : "";
 	// check if userid is exciting our database if so return with members details else return empty
 	$res = getCheckMember($userid,$eventId);
+	response($res, 200, 200, "Hello");
+	//response(NULL, NULL, 200,"No Record Found");
+}else if (isset($_POST['emailid']) && $_POST['emailid']!="" && 
+		isset($_POST['password']) && $_POST['password']!="") {
+	include("../shared/Model/mwiaMember2024.php");
+	include("../shared/Model/mwiaMemberKids2024.php");
+	include("../shared/Model/mwiaEventRegister.php");
+	include("../shared/Model/adminUser.php");
+	include("Dtos/eventUserDto.php");
+
+	// check if userid is exciting our database if so return with members details else return empty
+	$res = doLogin();
 	response($res, 200, 200, "Hello");
 	//response(NULL, NULL, 200,"No Record Found");
 }else{
@@ -31,7 +46,14 @@ function generateUniqueId() {
 
     return $timestamp;
 }
-
+function doLogin(){
+	$email = $_POST['emailid'];
+    $password = $_POST['password'];
+    
+    $objUser = new adminUser();
+    $resultUser = $objUser->selectUser($email,$password);
+	return $resultUser;
+}
 function getCheckMember($emailid,$eventid){
 	$eventId = $eventid;
 	$objMember = new mwiaMembers2024();
@@ -80,6 +102,7 @@ function getCheckMember($emailid,$eventid){
 		$objReturnDto->nubmberOfKids_age_above6 = count($above6);
 		$objReturnDto->paymentReference = $resultUser->memberId."_".generateUniqueId()."_"."GR24";
 		$objReturnDto->isRegisteredCurrentEvent = $isRegisteredCurrentEvent;
+		$objReturnDto->memberId = $resultUser->memberId;
     }
 	return $objReturnDto;
 }
