@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/ticketing/static/css/main.5605826e.css",
+    "main.js": "/ticketing/static/js/main.d40a9e7c.js",
+    "static/js/453.0a5b8f13.chunk.js": "/ticketing/static/js/453.0a5b8f13.chunk.js",
+    "static/media/logo.jpeg": "/ticketing/static/media/logo.18dca325af78041c386b.jpeg",
+    "index.html": "/ticketing/index.html",
+    "main.5605826e.css.map": "/ticketing/static/css/main.5605826e.css.map",
+    "main.d40a9e7c.js.map": "/ticketing/static/js/main.d40a9e7c.js.map",
+    "453.0a5b8f13.chunk.js.map": "/ticketing/static/js/453.0a5b8f13.chunk.js.map"
+  },
+  "entrypoints": [
+    "/ticketing/static/css/main.5605826e.css",
+    "/ticketing/static/js/main.d40a9e7c.js"
+  ]
+}

@@ -1,9 +1,9 @@
 <?php
 
 header("Content-Type:application/json");
-header("Access-Control-Allow-Origin: http://localhost:3000");
-header("Access-Control-Allow-Origin: http://localhost:3001");
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Credentials: true');
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 	
 use PHPMailer\PHPMailer\PHPMailer;
@@ -11,8 +11,8 @@ use PHPMailer\PHPMailer\Exception;
 require 'lib/vendor/autoload.php';
 
 if (isset($_GET['paymentReferenceNumber']) && $_GET['paymentReferenceNumber']!="" &&
-	isset($_GET['PayerID']) && $_GET['PayerID']!="" &&
-	isset($_GET['paidStatus']) && $_GET['paidStatus']!=""){
+	isset($_GET['payerid']) && $_GET['payerid']!="" &&
+	isset($_GET['paidstatus']) && $_GET['paidstatus']!=""){
 			// here do send email and update order
 	include("../shared/Model/mwiaEventEntryFee.php");
 	include("../shared/Model/mwiaEventRegister.php");
@@ -24,7 +24,6 @@ if (isset($_GET['paymentReferenceNumber']) && $_GET['paymentReferenceNumber']!="
 	$res = doConfirmRegistration();
 	response($res, 200, 200, "Hello");
 	//response(NULL, NULL, 200,"No Record Found");
-			
 }
 else{
 	response(NULL, NULL, 400,"Invalid Request");
@@ -37,18 +36,17 @@ function doConfirmRegistration(){
 	$objEventRegistration = new mwiaEventRegister();
 	$resultRegistration = $objEventRegistration->getUserWithReferenceNumber($_GET['paymentReferenceNumber']);
 
-	$paidConfirmedReferenceNumber =  $_GET['paymentReferenceNumber'];
+	$paidConfirmedReferenceNumber =  $_GET['payerid'];
 	// update the  paidConfirmedReferenceNumber to db.
 	//$resultRegistration->emailId = 'benherjose@icloud.com';
-	$objEventRegistration->updateEventRegister_paidConfirmedReferenceNumber($_GET['paymentReferenceNumber'],$paidConfirmedReferenceNumber, $_GET['paidStatus']);
-	if ($_GET['paidStatus'] == "1"){
+	$objEventRegistration->updateEventRegister_paidConfirmedReferenceNumber($_GET['paymentReferenceNumber'],$paidConfirmedReferenceNumber, $_GET['paidstatus']);
+	if ($_GET['paidstatus'] == 1 && $resultRegistration->isPaidConfirmed == 0){
 		createQRCode($_GET['paymentReferenceNumber'], $resultRegistration->fullName, $resultRegistration->emailId );
-		//sendEmail($_GET['paymentReferenceNumber']);
 	}
 	return $resultRegistration;
 
 	} catch (Exception $e) {
-		echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+		return $e;
 	}
 }
 
@@ -62,7 +60,7 @@ function createQRCode($codeString, $fullName, $emailId){
 function sendEmail($codeString, $fullName, $emailId){
 	try {
 		$mail = new PHPMailer(true);
-		// Server settings // mcbw nkrf meqx biiv
+		// Server settings // mcbw nkrf meqx biiv 
 		$mail->isSMTP();
 		$mail->Host = 'smtp.gmail.com';
 		$mail->SMTPAuth = true;
